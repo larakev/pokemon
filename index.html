@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 	<link rel="shortcut icon" href="images/logo.png" type="image/ico" />
+	<link rel="stylesheet" type="text/css" href="css/materialize.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+	<meta charset="UTF-8">
+	<title>Pokemons</title>
+</head>
+
+<body ng-app="pokemon">
+    <nav>
+	    <div class="nav-wrapper">
+	      <span class="brand-logo">Pokédex</span>
+	      <input id="buscar" type="text" placeholder="Buscar" ng-model="termino"></input>
+	    </div>
+    </nav> 
+	<div  ng-controller="pokemonController">
+		<div class="row">
+	      <div class="col s6 left">
+			<table class="highlight">
+		        <thead>
+		          <tr>
+		          	<th class="num" data-field="id">N°</th>
+		            <th class="name" data-field="id">Pokémon</th>
+		            <th class="type" data-field="name">Type</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		          <tr ng-repeat="pokemon in pokemons | filter:termino">
+		          	<td><a href="#" ng-bind="pokemon.id"></a></td>
+		            <td ng-click="ver(pokemon)"><span class="nombre" ng-bind="pokemon.name"></span></td>
+		            <td><span class="{{type}} tipo" ng-repeat="type in pokemon.type" ng-bind="type" ng-click="tipoPokemon(type)"></span> 
+					</td>
+		          </tr>
+		        </tbody>
+		      </table>
+	      </div>
+	      <div class="col s6" ng-show="pokemon">
+	      	<div class="cont z-depth-2">
+				<h2>{{pokemon.name}}</h2>
+				<div class="img">
+					<img src="" ng-src="{{pokemon.name | toImage }}">
+				</div>
+				<div class="info">
+					<p>Species: {{pokemon.species}}</p>
+					<p>Height: {{pokemon.height}}</p>
+					<p>Weight: {{pokemon.weight}}</p>
+					<p>Abilities: </p>
+					<ul>
+						<li>{{pokemon.abilities[0]}}</li>
+						<li>{{pokemon.abilities[1]}}</li>
+					</ul>
+				</div>
+				<h6>Evolutions</h6>
+				<div class="evol">
+					<ul>
+						<li ng-repeat="evolution in pokemon.evolution" ng-click="buscarPokemon(evolution)">
+						<img src="" ng-src="{{evolution | toImage }}">
+						<!-- <i class="icon-circle-right"></i> -->
+						</li>
+					</ul>
+				</div>
+			</div>
+	      </div>
+	    </div>
+	</div>
+	<script type="text/javascript" src="js/angular.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
+
